@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Вы действительно хотите выйти? </h3>
+                    <p class="text-light"> &nbsp
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+	<br><br><br><br>
+	<div class="col-lg-3 mx-auto">
+		<div class="row">
+			<div class="col s12">
+				<form method="POST" action="{% url 'login' %}" autocomplete="off" novalidate>
+					{% csrf_token %}
+				<br>
+					<div class="row">
+						<div class="column">
+							<button type="submit" class="btn btn-primary">Выйти</button>
+                            <br>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<style>
+	.error{
+		color: red;
+	}
+
+</style>
+{% else %}
+<header class="masthead">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h3 class=" site-heading my-4 mt-3 text-white"> Вы не авторизованны, желаете войти? </h3>
+                    <p class="text-light"> &nbsp
+                    <br>
+					<div class="row">
+						<div class="column">
+							<a href="{% url 'login' %}"
+                            class="btn btn-danger">Войти</a>
+                    <br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endif %}
+{% endblock %}
