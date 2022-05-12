@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 
 from .models import Post, PostImage
@@ -21,6 +22,18 @@ def post_details(request, id):
         'photos': photos,
     })
 
+
+@login_required
+def post_create_view(request):
+    context = {}
+    if request.method == "POST":
+        title = request.POST.get("title")
+        slug = request.POST.get("slug")
+        content = request.POST.get("content")
+        article_object = Post.objects.create(title=title, slug=slug, content=content)
+        context['object'] = article_object
+        context['created'] = True
+        return render(request, "articles/create.html", context=context)
 
 
 # from django.views import generic
