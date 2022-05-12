@@ -6,3 +6,5 @@ class PostForm(forms.Form):
     slug = forms.SlugField(max_length=250)
     content = forms.CharField()
     status = forms.ChoiceField()
+
+class NewPostForm(forms.ModelForm):
