@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import PostForm
+from .forms import NewPostForm
 from .models import Post, PostImage
 
 
@@ -26,13 +26,13 @@ def post_details(request, id):
 
 @login_required
 def post_create_view(request):
-    form = PostForm(request.POST or None)
+    form = NewPostForm(request.POST or None)
     context = {
         "form": form
     }
     if form.is_valid():
         post_object = form.save()
-        context['form'] = PostForm()
+        context['form'] = NewPostForm()
         return redirect(post_object.get_absolute_url())
     return render(request, "news/create.html", context=context)
 
