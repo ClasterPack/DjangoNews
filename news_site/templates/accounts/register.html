@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if not request.user.is_authenticated %}
+    <header class="masthead">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class=" col-md-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h3 class=" site-heading my-4 mt-3 text-white"> Регистрация Пользователя </h3>
+                        <p class="text-light"> &nbsp
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<br><br><br><br>
+	<div class="col-lg-3 mx-auto">
+		<div class="row">
+			<div class="col s12">
+				<form method="POST" action="{% url 'register' %}" autocomplete="off" novalidate>
+{% csrf_token %}
+                    <div class="row">
+                        <div class="col m6 s12">
+                            <label>Имя Пользователя:</label>
+                            {{ form.first_name }}
+                            {% for error in form.errors.first_name %}
+									<p class="error">{{ error }}</p>
+                            {% endfor %}
+                    </div>
+                    <div class="col m6 s12">
+                            <label>Фамилия Пользователя:</label>
+                            {{ form.last_name }}
+                            {% for error in form.errors.surname %}
+									<p class="error">{{ error }}</p>
+                            {% endfor %}
+                    </div>
+                    <div class="col m6 s12">
+                            <label>Логин Пользователя:</label>
+                            {{ form.username }}
+                            {% for error in form.errors.username %}
+									<p class="error">{{ error }}</p>
+                            {% endfor %}
+                    </div>
+                    <div class="col m6 s12">
+                            <label>Email Пользователя:</label>
+                            {{ form.email }}
+                            {% for error in form.errors.email %}
+									<p class="error">{{ error }}</p>
+                            {% endfor %}
+                    </div>
+                    <div class="col m6 s12">
+                            <label>Пароль Пользователя:</label>
+                            {{ form.password1 }}
+                            {% for error in form.errors.password1 %}
+									<p class="error">{{ error }}</p>
+                            {% endfor %}
+                    </div>
+                    <div class="col m6 s12">
+                            <label>Подтверждение пароля:</label>
+                            {{ form.password2 }}
+                            {% for error in form.errors.password2 %}
+									<p class="error">{{ error }}</p>
+                            {% endfor %}
+                    </div>
+                    		<br><br><br>
+					<div class="row">
+						<div class="column">
+							<button type="submit" class="btn btn-primary">Зарегестрироваться</button>
+                            <br>
+						</div>
+                    </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</form>
+{% else %}
+<header class="masthead">
+<div class="overlay"></div>
+<div class="container">
+    <div class="row">
+        <div class=" col-md-8 col-md-10 mx-auto">
+            <div class="site-heading">
+                <h3 class=" site-heading my-4 mt-3 text-white"> Вы уже вошли в аккаунт. Выйти? </h3>
+                <p class="text-light"> &nbsp
+                <br>
+                <div class="row">
+                    <div class="column">
+                        <a href="{% url 'logout' %}"
+                        class="btn btn-danger">Выйти</a>
+                <br>
+                </p>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</header>
+
+<style>
+	.error{
+		color: red;
+	}
+
+</style>
+{% endif %}
+
+{% endblock %}
